@@ -1,73 +1,75 @@
 package payment;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
-// °áÁ¦ ¹æ½ÄÀ» Á¤ÇÑ´Ù.
-// °áÁ¦´Â Çö±İ°ú Ä«µå·Î ±¸ºĞ
+// ê²°ì œ ë°©ì‹ì„ ì •í•œë‹¤.
+// ê²°ì œëŠ” í˜„ê¸ˆê³¼ ì¹´ë“œë¡œ êµ¬ë¶„
 
 public class Payment {
-	// º¯¼ö
+	// ë³€ìˆ˜
 	static Scanner scanner = new Scanner(System.in);
 
-	// °áÁ¦ ¹æ½ÄÀ» ¹¯´Â ¸Ş¼Òµå
+	// ê²°ì œ ë°©ì‹ì„ ë¬»ëŠ” ë©”ì†Œë“œ
 	public static int select() {
-		// 1. Ä«µå 2. Çö±İ
+		// 1. ì¹´ë“œ 2. í˜„ê¸ˆ
 		System.out.println("\n==================================================");
-		System.out.println("°áÁ¦ ¹æ½ÄÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.\n1. ½Å¿ë/Ã¼Å©Ä«µå 2. Ä«Ä«¿ÀÆäÀÌ 3. ¸¸³ª¼­ Çö±İ");
+		System.out.println("ê²°ì œ ë°©ì‹ì„ ì„ íƒí•´ì£¼ì„¸ìš”.\n1. ì‹ ìš©/ì²´í¬ì¹´ë“œ 2. ì¹´ì¹´ì˜¤í˜ì´ 3. ë§Œë‚˜ì„œ í˜„ê¸ˆ");
 		System.out.print("> ");
 		int userChoice = scanner.nextInt();
 		while (true) {
 			if (userChoice <= 0 || userChoice > 3) {
-				System.out.println("Àß¸ø ÀÔ·ÂÇÏ¿´½À´Ï´Ù.");
-				System.out.println("°áÁ¦ ¹æ½ÄÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.\n1. ½Å¿ë/Ã¼Å©Ä«µå 2. Ä«Ä«¿ÀÆäÀÌ 3. ¸¸³ª¼­ Çö±İ");
+				System.out.println("ì˜ëª» ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤.");
+				System.out.println("ê²°ì œ ë°©ì‹ì„ ì„ íƒí•´ì£¼ì„¸ìš”.\n1. ì‹ ìš©/ì²´í¬ì¹´ë“œ 2. ì¹´ì¹´ì˜¤í˜ì´ 3. ë§Œë‚˜ì„œ í˜„ê¸ˆ");
 
 				userChoice = scanner.nextInt();
 			} else {
 				if (userChoice == 1) {
 					scanner.nextLine();
-					System.out.println("½Å¿ë/Ã¼Å©Ä«µå¸¦ ¼±ÅÃÇÏ¿´½À´Ï´Ù.");
-					System.out.println("Ä«µå¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+					System.out.println("ì‹ ìš©/ì²´í¬ì¹´ë“œë¥¼ ì„ íƒí•˜ì˜€ìŠµë‹ˆë‹¤.");
+					System.out.println("ì¹´ë“œë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 					System.out.print("> ");
 					scanner.nextLine();
-
-					System.out.println("CVC 3ÀÚ¸®¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+					System.out.println("CVC 3ìë¦¬ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 					System.out.print("> ");
 					scanner.nextInt();
 					scanner.nextLine();
-					System.out.println("Ä«µå ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+					System.out.println("ì¹´ë“œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 					System.out.print("> ");
 					scanner.nextLine();
-					// 3ÃÊ°£ Áö¿¬ ½ÃÅ°±â
+					// 3ì´ˆê°„ ì§€ì—° ì‹œí‚¤ê¸°
 					try {
-						System.out.println("°áÁ¦ ÁøÇàÁß...");
+						System.out.println("ê²°ì œ ì§„í–‰ì¤‘...");
 						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("°áÁ¦ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+					System.out.println("ê²°ì œ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} else if (userChoice == 2) {
-					// 3ÃÊ°£ Áö¿¬ ½ÃÅ°±â
+					// 3ì´ˆê°„ ì§€ì—° ì‹œí‚¤ê¸°
 					try {
-						System.out.println("Ä«Ä«¿ÀÆäÀÌ·Î °áÁ¦¸¦ ÁøÇà...");
+						System.out.println("ì¹´ì¹´ì˜¤í˜ì´ë¡œ ê²°ì œë¥¼ ì§„í–‰...");
 						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("°áÁ¦ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+					System.out.println("ê²°ì œ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} else {
-					// 3ÃÊ°£ Áö¿¬ ½ÃÅ°±â
-					System.out.println("¸¸³ª¼­ Çö±İ °áÁ¦¸¦ ¼±ÅÃÇÏ¿´½À´Ï´Ù.");
+					// 3ì´ˆê°„ ì§€ì—° ì‹œí‚¤ê¸°
+					System.out.println("ë§Œë‚˜ì„œ í˜„ê¸ˆ ê²°ì œë¥¼ ì„ íƒí•˜ì˜€ìŠµë‹ˆë‹¤.");
 					try {
-						System.out.println("ÁÖ¹® ÁøÇàÁß...");
+						System.out.println("ì£¼ë¬¸ ì§„í–‰ì¤‘...");
 						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.println("ÁÖ¹® ¿Ï·áµÇ¾ú½À´Ï´Ù.");
-					System.out.println("¶óÀÌ´õ°¡ µµÂøÇÏ±âÀü¿¡ ¹Ì¸® Çö±İÀ» ÁØºñÇØ ÁÖ½Ã±æ ¹Ù¶ø´Ï´Ù.");
+					System.out.println("ì£¼ë¬¸ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+					System.out.println("ë¼ì´ë”ê°€ ë„ì°©í•˜ê¸°ì „ì— ë¯¸ë¦¬ í˜„ê¸ˆì„ ì¤€ë¹„í•´ ì£¼ì‹œê¸¸ ë°”ëë‹ˆë‹¤.");
 				}
 			}
 
@@ -78,29 +80,82 @@ public class Payment {
 
 	}
 
-	public static void receap(int userChoice) {
+	public static void receipt(int userChoice) {
+		ReceiptDto receipt = new ReceiptDto();
+		Connection conn = null;
+		
+		String payment;
+		try {
+			conn = ConnectionProvider.getConnection();
+
+			// íŠ¸ë Œì ì…˜ ì¼ì˜ ë‹¨ìœ„
+			conn.setAutoCommit(false); // íŠ¸ë Œì ì…˜ì˜ ì»¨íŠ¸ë¡¤ í•˜ê² ë‹¤!
+			// sqlë¬¸ insert into dorder values (ì£¼
+			if (userChoice == 1 || userChoice == 2) {
+				payment = "ë¯¸ë¦¬ê²°ì œì™„ë£Œ";
+				// addReceipt(users.getAddress(),users.phoneNum,Cart.addCart(),payment)
+				ReceiptDAO.insertReceipt(conn, receipt);
+
+			} else {
+				// DB dorder ì˜ otypeì— "í˜„ê¸ˆê²°ì œ" ë¡œ
+				payment = "ë¯¸ë¦¬ê²°ì œì™„ë£Œ";
+				// addReceipt(users.getAddress(),users.phoneNum,Cart.addCart(),payment)
+				ReceiptDAO.insertReceipt(conn, receipt);
+			}
+			conn.commit();
+		} catch (SQLException e) {
+
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+
 		System.out.println("\n==================================================");
 		try {
-			System.out.println("¿µ¼öÁõ ¹ß±ŞÁß...");
+			System.out.println("ì˜ìˆ˜ì¦ ë°œê¸‰ì¤‘...");
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		System.out.println("\n==================================================");
 
-		System.out.println("ÁÖ¹® Á¤º¸");
-		// sql¹® insert into dorder values (ÁÖ
-		if (userChoice == 1 || userChoice == 2) {
-			// DB dorder ÀÇ otype¿¡ "¹Ì¸®°áÁ¦" ·Î
-			System.out.println("°áÁ¦¼ö´Ü: ¹Ì¸®°áÁ¦");
-		} else {
-			// DB dorder ÀÇ otype¿¡ "Çö±İ°áÁ¦" ·Î
-			System.out.println("°áÁ¦¼ö´Ü: ¸¸³ª¼­ Çö±İ°áÁ¦");
-		}
+		System.out.println("â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬› ì˜ ìˆ˜ ì¦ â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›â¬›");
+		System.out.println("ì£¼ì†Œ: " + receipt.getAddress());
+		System.out.println("ì „í™”ë²ˆí˜¸: "+receipt.getPhoneNum());
+		System.out.println("ì´ ê²°ì œê¸ˆì•¡: "+receipt.getTotalPrice());
+		
+
 	}
 
+	// ì£¼ë¬¸ì •ë³´ ì €ì¥ ë©”ì†Œë“œ
+	public ReceiptDto addReceipt(String address, String phoneNum, int totalPrice, String payment) {
+		ReceiptDto receipt = new ReceiptDto();
+		receipt.setAddress(address);
+		receipt.setPhoneNum(phoneNum);
+		receipt.setTotalPrice(totalPrice);
+		receipt.setPayment(payment);
+
+		return receipt;
+	}
+
+	// ì¥ë°”êµ¬ë‹ˆì— ìˆëŠ” ë©”ë‰´ë“¤ì„ ê°€ì ¸ì˜¤ëŠ” ë©”ì†Œë“œ
+//	public void showCart() {
+//		List<CartDto> list = Cart.addCart().;
+//		
+//		for(CartDto menu : list) {
+//			System.out.println(menu);
+//		}
+//	}
+
 	public static void main(String[] args) {
-		receap(select());
+		
 
 	}
 }
