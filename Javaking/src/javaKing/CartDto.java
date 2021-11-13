@@ -1,18 +1,18 @@
-package cart;
+package javaKing;
 
 public class CartDto {
 
-	public int mid;
-	public String mname;
-	public int mprice;
-	public int mnum;
-	public String mtype;
+	private int mid;
+	private String mname;
+	private int mprice;
+	private int mcount;
+	private String mtype;
 
-	public CartDto(int mid, String mname, int mprice, int mnum, String mtype) {
+	public CartDto(int mid, String mname, int mprice, int mcount, String mtype) {
 		this.mid = mid;
 		this.mname = mname;
 		this.mprice = mprice;
-		this.mnum = mnum;
+		this.mcount = mcount;
 		this.mtype = mtype;
 	}
 
@@ -43,12 +43,12 @@ public class CartDto {
 		this.mprice = mprice;
 	}
 
-	public int getMnum() {
-		return mnum;
+	public int getMcount() {
+		return mcount;
 	}
 
-	public void setMnum(int mnum) {
-		this.mnum = mnum;
+	public void setMcount(int mcount) {
+		this.mcount = mcount;
 	}
 
 	public String getMtype() {
@@ -59,10 +59,5 @@ public class CartDto {
 		this.mtype = mtype;
 	}
 
-	@Override
-	public String toString() {
-		return "CartDTO [mid=" + mid + ", mname=" + mname + ", mprice=" + mprice + ", mnum=" + mnum + ", mtype=" + mtype
-				+ "]";
-	}
 
 }

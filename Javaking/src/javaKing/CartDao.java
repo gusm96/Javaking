@@ -1,4 +1,4 @@
-package payment;
+package javaKing;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,13 +27,13 @@ public class CartDao {
 		CartDto cartlist = null;
 		
 		// Sql : Select
-		String sql = "select * from macdo where mid=?";
-		// °á°ú -> 1 ¶Ç´Â 0Çà
+		String sql = "select * from menu where mid=?";
+		// ê²°ê³¼ -> 1 ë˜ëŠ” 0í–‰
 
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, mid);// 1Àº Ã¹¹øÂ°ÀÎ mid¸¦ ¶æÇÑ´Ù
+			pstmt.setInt(1, mid);// 1ì€ ì²«ë²ˆì§¸ì¸ midë¥¼ ëœ»í•œë‹¤
 
 			rs = pstmt.executeQuery();
 

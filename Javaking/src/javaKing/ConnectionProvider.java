@@ -1,4 +1,4 @@
-package payment;
+package javaKing;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

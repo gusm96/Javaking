@@ -1,4 +1,4 @@
-package payment;
+package javaKing;
 
 public class App {
 	public static void main(String[] args) {

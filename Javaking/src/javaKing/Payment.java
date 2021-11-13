@@ -1,12 +1,9 @@
-package payment;
+package javaKing;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
-
-// 결제 방식을 정한다.
-// 결제는 현금과 카드로 구분
 
 public class Payment {
 	// 변수
@@ -77,13 +74,24 @@ public class Payment {
 
 		}
 		return userChoice;
-
 	}
 
-	public static void receipt(int userChoice) {
+	// 주문정보 저장 메소드
+	public static ReceiptDto addReceipt(int id, String address, String phoneNum, int totalPrice, String payment) {
 		ReceiptDto receipt = new ReceiptDto();
+		receipt.setUserid(id);
+		receipt.setAddress(address);
+		receipt.setPhoneNum(phoneNum);
+		receipt.setTotalPrice(totalPrice);
+		receipt.setPayment(payment);
+
+		return receipt;
+	}
+
+	public static void receipt(String userid, int userChoice, int totalPrice) {
+		ReceiptDto receipt = null;
 		Connection conn = null;
-		
+		UserDto user = LoginDao.logedInfo(conn, userid);
 		String payment;
 		try {
 			conn = ConnectionProvider.getConnection();
@@ -93,14 +101,15 @@ public class Payment {
 			// sql문 insert into dorder values (주
 			if (userChoice == 1 || userChoice == 2) {
 				payment = "미리결제완료";
-				// addReceipt(users.getAddress(),users.phoneNum,Cart.addCart(),payment)
-				ReceiptDAO.insertReceipt(conn, receipt);
+				// 회원 id값으로 회원정보 get
+				receipt = addReceipt(user.getId(), user.getAddress(), user.getPhone(), totalPrice, payment);
+				ReceiptDao.insertReceipt(conn, receipt);
 
 			} else {
 				// DB dorder 의 otype에 "현금결제" 로
 				payment = "미리결제완료";
-				// addReceipt(users.getAddress(),users.phoneNum,Cart.addCart(),payment)
-				ReceiptDAO.insertReceipt(conn, receipt);
+				receipt = addReceipt(user.getId(), user.getAddress(), user.getPhone(), totalPrice, payment);
+				ReceiptDao.insertReceipt(conn, receipt);
 			}
 			conn.commit();
 		} catch (SQLException e) {
@@ -128,34 +137,9 @@ public class Payment {
 
 		System.out.println("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛ 영 수 증 ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛");
 		System.out.println("주소: " + receipt.getAddress());
-		System.out.println("전화번호: "+receipt.getPhoneNum());
-		System.out.println("총 결제금액: "+receipt.getTotalPrice());
-		
+		System.out.println("전화번호: " + receipt.getPhoneNum());
+		System.out.println("총 결제금액: " + receipt.getTotalPrice());
 
 	}
 
-	// 주문정보 저장 메소드
-	public ReceiptDto addReceipt(String address, String phoneNum, int totalPrice, String payment) {
-		ReceiptDto receipt = new ReceiptDto();
-		receipt.setAddress(address);
-		receipt.setPhoneNum(phoneNum);
-		receipt.setTotalPrice(totalPrice);
-		receipt.setPayment(payment);
-
-		return receipt;
-	}
-
-	// 장바구니에 있는 메뉴들을 가져오는 메소드
-//	public void showCart() {
-//		List<CartDto> list = Cart.addCart().;
-//		
-//		for(CartDto menu : list) {
-//			System.out.println(menu);
-//		}
-//	}
-
-	public static void main(String[] args) {
-		
-
-	}
 }

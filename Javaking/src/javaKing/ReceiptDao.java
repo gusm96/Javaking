@@ -1,24 +1,23 @@
-package payment;
+package javaKing;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ReceiptDAO {
-	// 외부에서 인스턴스를 생성하지 못하도록 private
-	private ReceiptDAO() {}
-	// 내부에서 인스턴스 생성
-	private static ReceiptDAO rdao = new ReceiptDAO();
+public class ReceiptDao {
 	
-	public static ReceiptDAO getInstance() {
+	private ReceiptDao() {}
+	
+	private static ReceiptDao rdao = new ReceiptDao();
+	
+	public static ReceiptDao getInstance() {
 		return rdao;
 	}
 	
-	
-	// 주문정보를 구하는 showReceipt() 
-	// 배달정보, 결제정보를 매개변수로 받아온다.
+
 	public static ReceiptDto showReceipt(Connection conn, int orderid) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -32,11 +31,10 @@ public class ReceiptDAO {
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()) {
-				receipt = new ReceiptDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5));
+				receipt = new ReceiptDto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getInt(6));
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			JdbcUtil.close(rs);
@@ -45,35 +43,31 @@ public class ReceiptDAO {
 		}
 		
 		return receipt;
-		
 	}
 	
-	
-	// dorder table에 받은 주문정보를 insert 해주는 메소드
-	public static int insertReceipt (Connection conn ,ReceiptDto receipt) {
-		
+	public static int insertReceipt (Connection conn , ReceiptDto receipt) {
 		PreparedStatement pstmt = null;
 		int resultCnt = 0;
-		
-		// sql 문
-		String sql = "insert into dorder values (dorder_seq.nextVal, sysdate,?,?,?)";
+		// sql臾�
+		String sql = "insert into dorder values (dorder_seq.nextVal, sysdate, ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			// sql 파라미터 설정
+			
 			pstmt.setInt(1, receipt.getTotalPrice());
 			pstmt.setString(2, receipt.getPayment());
-			pstmt.setInt(3, 1);
+			pstmt.setInt(3, receipt.getUserid());
 
 			resultCnt = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		} finally {
 			JdbcUtil.close(pstmt);
 		}
 		
 		return resultCnt;
 	}
+	
 }

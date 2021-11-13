@@ -1,18 +1,28 @@
-package payment;
+package javaKing;
 
 public class ReceiptDto {
-	public int oid; // ÁÖ¹® ¹øÈ£
-	public String address; // °í°´ ÁÖ¼Ò
-	public String phoneNum; // °í°´ ÀüÈ­¹øÈ£
-	public int totalPrice; // ¸ğµç ¸Ş´ºÀÇ ±İ¾×À» ÇÕ»êÇÑ ÃÑ °áÁ¦±İ¾×
-	public String payment; // °áÁ¦ ¹æ¹ı
+	public int oid; // ì£¼ë¬¸ë²ˆí˜¸
+	public String address; // ì£¼ì†Œ
+	public String phoneNum; // ì „í™”ë²ˆí˜¸
+	public int totalPrice; // ì´ ê²°ì œê¸ˆì•¡
+	public String payment; // ê²°ì œë°©ì‹
+	private int userid; // í˜„ì¬ ë¡œê·¸ì¸ë˜ì–´ ìˆëŠ” íšŒì›ì˜ íšŒì›ë²ˆí˜¸
 	
-	public ReceiptDto(int oid, String address, String phoneNum, int totalPrice, String payment) {
+	public ReceiptDto(int oid,String address, String phoneNum, int totalPrice, String payment, int userid) {
 		this.oid = oid;
 		this.address = address;
 		this.phoneNum = phoneNum;
 		this.totalPrice = totalPrice;
 		this.payment = payment;
+		this.userid= userid;
+	} 
+	
+	public ReceiptDto(String address, String phoneNum, int totalPrice, String payment, int userid) {
+		this.address = address;
+		this.phoneNum = phoneNum;
+		this.totalPrice = totalPrice;
+		this.payment = payment;
+		this.userid= userid;
 	} 
 	
 	public ReceiptDto () {}
@@ -55,6 +65,14 @@ public class ReceiptDto {
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
 	
 	
