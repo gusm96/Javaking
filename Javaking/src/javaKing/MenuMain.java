@@ -54,6 +54,7 @@ public class MenuMain {
 		}
 		return menuNum;
 	}
-
+	
+	public
 	
 }

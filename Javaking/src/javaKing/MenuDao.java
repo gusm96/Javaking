@@ -118,7 +118,10 @@ public class MenuDao {
 		System.out.print(" >");
 		int select = sc.nextInt();
 
-		Cart.addCart(select);
+		while(true){
+			if(select == 1)
+			Cart.addCart();
+		}
 
 		return userChoice;
 	}

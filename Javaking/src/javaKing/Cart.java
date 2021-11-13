@@ -12,7 +12,7 @@ import javaKing.Payment;
 public class Cart {
 	static Scanner scanner = new Scanner(System.in);
 
-	public static void addCart(int userChoice) {
+	public static void addCart() {
 		int totalPrice = 0;
 		CartDao cartDao = CartDao.getInstance();
 
