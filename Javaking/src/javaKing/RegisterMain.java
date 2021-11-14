@@ -18,7 +18,7 @@ public class RegisterMain {
             conn = ConnectionProvider.getConnection();
             //회원정보입력
             regView.insertUser(conn);
-        
+            conn.commit();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

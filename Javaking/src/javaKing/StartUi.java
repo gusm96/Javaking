@@ -27,10 +27,11 @@ public class StartUi {
 			System.out.println("==================================================");
 			
 			System.out.println("1.로그인  2.회원가입  3.프로그램종료");
-			System.out.println("실행할 메뉴를 선택하세요. >");
+			System.out.println("실행할 메뉴를 선택하세요.");
+			System.out.print("> ");
+			int userChoice = Integer.parseInt(sc.nextLine());
 			System.out.println("==================================================");
 			
-			int userChoice = Integer.parseInt(sc.nextLine());
 			
 			switch(userChoice) {
 			

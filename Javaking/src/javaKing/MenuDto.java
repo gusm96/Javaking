@@ -3,11 +3,11 @@ package javaKing;
 public class MenuDto {
 	
 	// 변수
-	public int mid;
-	public String mname;
-	public int mprice;
-	public int mtype;
-	public int mcount;
+	private int mid;
+	private String mname;
+	private int mprice;
+	private int mtype;
+	private int mcount;
 
 	// 생성자: 변수 초기화
 	public MenuDto(int mid, String mname, int mprice, int mtype) {

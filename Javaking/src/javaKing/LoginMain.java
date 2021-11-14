@@ -8,7 +8,7 @@ public class LoginMain {
 		MenuMain menuMain = new MenuMain();
 	    LoginDao logDao = new LoginDao();
 	    LoginView logView = new LoginView();
-	    ManagerSelect managerSelect = new ManagerSelect();
+	    ManagerMain manager = new ManagerMain();
 	    Connection conn;
 	    
 	    //입력메소드
@@ -21,10 +21,10 @@ public class LoginMain {
 	            
 	            if(log >0) {	//일반회원이 로그인 한 경우,
 	            	logView.rightAddr(conn);
-	            	Cart.addCart(2);
+	            	menuMain.menuMain();
 	            }else {
 	            	//매니저의 메뉴가 실행될 것이다.
-	            	managerSelect.admin();
+	            	manager.adminMenu();
 	            	System.out.println("매니저 메뉴 실행 화면입니다.");
 	            }
 	            

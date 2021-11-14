@@ -1,11 +1,11 @@
 package javaKing;
 
 public class ReceiptDto {
-	public int oid; // 주문번호
-	public String address; // 주소
-	public String phoneNum; // 전화번호
-	public int totalPrice; // 총 결제금액
-	public String payment; // 결제방식
+	private int oid; // 주문번호
+	private String address; // 주소
+	private String phoneNum; // 전화번호
+	private int totalPrice; // 총 결제금액
+	private String payment; // 결제방식
 	private int userid; // 현재 로그인되어 있는 회원의 회원번호
 	
 	public ReceiptDto(int oid,String address, String phoneNum, int totalPrice, String payment, int userid) {

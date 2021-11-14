@@ -10,19 +10,20 @@ public class LoginView {
 	public static Scanner sc = new Scanner(System.in);
 	LoginDao logDao = new LoginDao();
 	public static String logId = null;
-	
+	Payment payment = new Payment();
 	//로그인한다
 	public int login(Connection conn) {
-		System.out.println("==================================================");
 		System.out.println("로그인을 시작합니다.");
 		System.out.println();
-		System.out.println("아이디를 입력하세요. >");
+		System.out.println("아이디를 입력하세요.");
+		System.out.print("> ");
 		String id = sameId(conn);
-		System.out.println("비밀번호를 입력하세요. >");
+		System.out.println("비밀번호를 입력하세요.");
+		System.out.print("> ");
 		String pw = rightPw(conn, id);
 		System.out.println("로그인 성공!\n");
 		logId = id;							//로그인에 성공한 아이디를 현 로그인상태 변수에 넣는다.
-		
+		payment.setLogInId(logId);
 		
 		int uid = returnId(conn, logId);	//현 로그인 한 아이디값이 매니저인지 아닌지 확인하는 메소드
 		
@@ -46,7 +47,8 @@ public class LoginView {
 			}
 			else if(sameId ==0){
 				System.out.println("존재하지 않는 아이디입니다.");
-				System.out.println("*다시 입력하시거나 메인메뉴로 돌아가려면 X를 눌러주세요. >");
+				System.out.println("*다시 입력하시거나 메인메뉴로 돌아가려면 X를 눌러주세요.");
+				System.out.print("> ");
 			}
 		}return inputId;
 	}
@@ -67,8 +69,9 @@ public class LoginView {
 			}else if (inputPw.equalsIgnoreCase("x")) {
 				StartUi.homeMenu();
 			}else if(rightPw == 0) {
-				System.out.println("맞는 비밀번호가 아닙니다. 다시 입력해주세요. >");
-				System.out.println("*다시 입력하시거나 메인메뉴로 돌아가려면 X를 눌러주세요. >");
+				System.out.println("맞는 비밀번호가 아닙니다. 다시 입력해주세요.");
+				System.out.println("*다시 입력하시거나 메인메뉴로 돌아가려면 X를 눌러주세요.");
+				System.out.print("> ");
 			}
 		}return inputPw;
 				
@@ -111,13 +114,15 @@ public class LoginView {
 		System.out.println(logId +"님이 배달받으실 주소 : " + addr);
 		System.out.println();
 		
-		System.out.println("맞으시면 Y, 변경하시려면 N을 눌러주세요. >");
+		System.out.println("맞으시면 Y, 변경하시려면 N을 눌러주세요.");
+		System.out.print("> ");
 		
 		String choice = sc.nextLine();
 		
 		if(choice.equalsIgnoreCase("N")) {
 			//주소가 틀리면 주소변경을 시행한다.
-			System.out.println("변경할 주소를 입력해주세요 >");
+			System.out.println("변경할 주소를 입력해주세요.");
+			System.out.print("> ");
 			String newAddr = sc.nextLine();
 			try {
 				logDao.updateAdrr(conn, newAddr, logId);

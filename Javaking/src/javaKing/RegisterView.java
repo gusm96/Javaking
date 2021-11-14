@@ -16,18 +16,18 @@ public class RegisterView {
 		public void insertUser (Connection conn) {
 			
 			System.out.println("회원정보입력을 시작합니다.\n");
-			System.out.println("이름: >");
+			System.out.print("이름: >");
 			String name = getString();
-			System.out.println("아이디: >");	
+			System.out.print("아이디: >");	
 			String id = catchSameInput(conn, 0);	//중복체크확인하기
-			System.out.println("비밀번호: >");
+			System.out.print("비밀번호: >");
 			String pw = getString();
-			System.out.println("주소: >");
+			System.out.print("주소: >");
 			String address = getString();
 			System.out.println("전화번호: ");	
-			System.out.println("000-0000-0000형식으로 입력하세요. >");
+			System.out.print("000-0000-0000형식으로 입력하세요. >");
 			String phone = catchSameInput(conn, 1); //중복체크확인하기
-			System.out.println("이메일: >");			//그냥 넘어가도 되는지 확인하기
+			System.out.print("이메일: >");			//그냥 넘어가도 되는지 확인하기
 			String email = getString();
 			
 			UserDto users = new UserDto(0, name, id, pw, address, phone, email);

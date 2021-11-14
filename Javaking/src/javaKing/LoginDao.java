@@ -74,7 +74,7 @@ public class LoginDao {
 	
 	
 	// 입력한 아이디에 속하는 주소를 DB에서 불러오는 메소드
-	public static String sameAddr(Connection conn, String id) {
+	public String sameAddr(Connection conn, String id) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -98,8 +98,8 @@ public class LoginDao {
 		return addr;
 	}
 	
-	// 입력한 아이디에 속하는 전화번호를 DB에서 불러오는 메소드
-		public static UserDto logedInfo(Connection conn, String id) {
+	// 입력한 아이디에 속하는 회원정보를 DB에서 불러오는 메소드
+		public  UserDto logedInfo(Connection conn, String id) {
 
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
