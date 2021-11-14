@@ -26,7 +26,7 @@ public class RegisterDao {
 			pstmt.setString(1, users.getUsername());
 			pstmt.setString(2, users.getUserid());
 			pstmt.setString(3,users.getPassword());
-			pstmt.setString(4, users.getPassword());
+			pstmt.setString(4, users.getAddress());
 			pstmt.setString(5, users.getPhone());
 			pstmt.setString(6, users.getEmail());
 						
