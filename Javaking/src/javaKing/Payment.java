@@ -16,7 +16,7 @@ public class Payment {
 	}
 
 	// 결제 방식을 묻는 메소드
-	public int select() {
+	public int selectPayment() {
 		// 1. 카드 2. 현금
 		System.out.println("\n==================================================");
 		System.out.println("결제 방식을 선택해주세요.\n1. 신용/체크카드 2. 카카오페이 3. 만나서 현금");
@@ -78,46 +78,40 @@ public class Payment {
 		}
 		return userChoice;
 	}
-
-	// 주문정보 저장 메소드
-	public ReceiptDto addReceipt(int id, String address, String phoneNum, int totalPrice, String payment) {
-		ReceiptDto receipt = new ReceiptDto();
-		receipt.setUserid(id);
-		receipt.setAddress(address);
-		receipt.setPhoneNum(phoneNum);
-		receipt.setTotalPrice(totalPrice);
-		receipt.setPayment(payment);
-
-		return receipt;
-	}
-
-	public void receipt(int userChoice, List<CartDto> list, int totalPrice) {
-		Cart cart = new Cart();
+	
+	// 매개변수
+	// 결제방법 : userChoice => selectPayment() 에서 리턴값으로 받아온다.
+	// 장바구니 리스트: list => Cart 클래스의 showCart() 에서 List<CartDto> list를 받아온다.
+	// 총 결제금액 : totalPrice => Cart 클래스의 showCart() 에서 계산한 totalPrice를 받아온다. 
+	public void printReceipt(int userChoice, List<CartDto> list, int totalPrice) {
 		String userId = logInId;
 		ReceiptDto receipt = null;
 		Connection conn = null;
 		LoginDao loginDao = new LoginDao();
 		UserDto user = null;
 		String payment;
+
 		try {
 			conn = ConnectionProvider.getConnection();
 
 			// 트렌젝션 일의 단위
 			conn.setAutoCommit(false); // 트렌젝션의 컨트롤 하겠다!
 
+			// 로그인한 회원의 ID로 DB에서 회원정보를 가져온다.
 			user = loginDao.logedInfo(conn, userId);
 
-			// sql문 insert into dorder values (주
+			// selectPayment()에서 매개변수로 받아온 결제방식
 			if (userChoice == 1 || userChoice == 2) {
 				payment = "미리결제완료";
-				// 회원 id값으로 회원정보 get
-				receipt = addReceipt(user.getId(), user.getAddress(), user.getPhone(), totalPrice, payment);
+				// 생성자에 데이터를 저장
+				receipt = new ReceiptDto(user.getAddress(), user.getPhone(), totalPrice, payment, user.getId());
+				// 주문정보를 DB dorder table에 insert 하는 sql문 메소드를 실행
 				ReceiptDao.insertReceipt(conn, receipt);
 
 			} else {
-				// DB dorder 의 otype에 "현금결제" 로
 				payment = "만나서 현금결제";
-				receipt = addReceipt(user.getId(), user.getAddress(), user.getPhone(), totalPrice, payment);
+				receipt = new ReceiptDto(user.getAddress(), user.getPhone(), totalPrice, payment, user.getId());
+
 				ReceiptDao.insertReceipt(conn, receipt);
 			}
 			conn.commit();
@@ -131,7 +125,7 @@ public class Payment {
 			e.printStackTrace();
 
 		}
-
+		// 영수증 출력
 		System.out.println("\n==================================================");
 		try {
 			System.out.println("영수증 발급중...");
@@ -144,9 +138,10 @@ public class Payment {
 		System.out.println("⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛ 영 수 증⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛");
 		System.out.println("주소: " + receipt.getAddress());
 		System.out.println("전화번호: " + receipt.getPhoneNum());
+		System.out.println("\n--------------------------------------------------\n");
+		// for each 문로 리스트를 출력
 		for (CartDto cartDto : list) {
-			System.out.println("메뉴명 : " + cartDto.getMname() + "\t수량: " + cartDto.getMcount() + "\t금액: "
-					+ cartDto.getMprice() * cartDto.getMcount());
+			System.out.println(cartDto);
 		}
 		System.out.println("\n--------------------------------------------------\n");
 
@@ -166,7 +161,7 @@ public class Payment {
 		if (select == 1) {
 			MenuMain menu = new MenuMain();
 			try {
-				System.out.println("메뉴선택으로 돌아갑니다...");
+				System.out.println("주문을 취소하고, 메뉴선택으로 돌아갑니다...");
 				Thread.sleep(3000);
 				menu.menuMain();
 			} catch (InterruptedException e) {

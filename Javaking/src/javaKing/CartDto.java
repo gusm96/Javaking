@@ -59,5 +59,10 @@ public class CartDto {
 		this.mtype = mtype;
 	}
 
+	@Override
+	public String toString() {
+		return "메뉴명 : " + mname + "\t수량 : " + mcount + "\t금액 : " + mprice*mcount + "원";
+	}
+
 
 }

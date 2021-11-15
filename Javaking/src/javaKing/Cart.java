@@ -12,7 +12,8 @@ public class Cart {
 	static Scanner scanner = new Scanner(System.in);
 	MenuMain menuMain = new MenuMain();
 	Payment payment = new Payment();
-	public void addCart(List<CartDto> list ,int menuNum) {
+
+	public void addCart(List<CartDto> list, int menuNum) {
 		CartDao cartDao = CartDao.getInstance();
 
 		Connection conn = null;
@@ -41,7 +42,7 @@ public class Cart {
 		System.out.println("\n==================================================\n");
 		for (CartDto cart : list) {
 			System.out.println("메뉴: " + cart.getMname() + "\t수량: " + cart.getMcount() + "\t금액: "
-					+ cart.getMprice()*cart.getMcount());
+					+ cart.getMprice() * cart.getMcount());
 		}
 		for (int i = 0; i < list.size(); i++) {
 			totalPrice += list.get(i).getMprice() * list.get(i).getMcount();
@@ -52,8 +53,7 @@ public class Cart {
 		System.out.println("\n==================================================\n");
 		System.out.println("1. 취소하기 2. 결제하기");
 		System.out.print("> ");
-		int select;
-		select = scanner.nextInt();
+		int select = scanner.nextInt();
 		while (select <= 0 || select > 2) {
 			System.out.println("잘못 입력하였습니다.");
 			System.out.println("다시 입력해 주세요.");
@@ -73,7 +73,8 @@ public class Cart {
 
 		} else if (select == 2) {
 			// 결제메소드
-			payment.receipt(payment.select(), list ,totalPrice);
+			int pay = payment.selectPayment();
+			payment.printReceipt(pay, list, totalPrice);
 		}
 	}
 }
