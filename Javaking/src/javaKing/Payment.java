@@ -84,8 +84,10 @@ public class Payment {
 	// 장바구니 리스트: list => Cart 클래스의 showCart() 에서 List<CartDto> list를 받아온다.
 	// 총 결제금액 : totalPrice => Cart 클래스의 showCart() 에서 계산한 totalPrice를 받아온다. 
 	public void printReceipt(int userChoice, List<CartDto> list, int totalPrice) {
+		
 		String userId = logInId;
 		ReceiptDto receipt = null;
+		ReceiptDao receiptDao = new ReceiptDao();
 		Connection conn = null;
 		LoginDao loginDao = new LoginDao();
 		UserDto user = null;
@@ -106,13 +108,13 @@ public class Payment {
 				// 생성자에 데이터를 저장
 				receipt = new ReceiptDto(user.getAddress(), user.getPhone(), totalPrice, payment, user.getId());
 				// 주문정보를 DB dorder table에 insert 하는 sql문 메소드를 실행
-				ReceiptDao.insertReceipt(conn, receipt);
+				receiptDao.insertReceipt(conn, receipt);
 
 			} else {
 				payment = "만나서 현금결제";
 				receipt = new ReceiptDto(user.getAddress(), user.getPhone(), totalPrice, payment, user.getId());
 
-				ReceiptDao.insertReceipt(conn, receipt);
+				receiptDao.insertReceipt(conn, receipt);
 			}
 			conn.commit();
 		} catch (SQLException e) {

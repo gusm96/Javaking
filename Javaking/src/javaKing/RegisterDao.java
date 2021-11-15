@@ -56,7 +56,7 @@ public class RegisterDao {
 			
 			//출력할 정보를 불러온다 (회원번호는 없음)
 			if(rs.next()) {
-				UserDto users = new UserDto(rs.getString(2), rs.getString(3), 
+				UserDto users = new UserDto(rs.getInt(1),rs.getString(2), rs.getString(3), 
 						rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
 				
 				//불러온 정보를 출력
