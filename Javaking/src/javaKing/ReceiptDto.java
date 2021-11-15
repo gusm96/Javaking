@@ -8,14 +8,6 @@ public class ReceiptDto {
 	private String payment; // 결제방식
 	private int userid; // 현재 로그인되어 있는 회원의 회원번호
 	
-	public ReceiptDto(int oid,String address, String phoneNum, int totalPrice, String payment, int userid) {
-		this.oid = oid;
-		this.address = address;
-		this.phoneNum = phoneNum;
-		this.totalPrice = totalPrice;
-		this.payment = payment;
-		this.userid= userid;
-	} 
 	
 	public ReceiptDto(String address, String phoneNum, int totalPrice, String payment, int userid) {
 		this.address = address;
